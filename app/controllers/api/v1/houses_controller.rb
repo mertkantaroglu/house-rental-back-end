@@ -4,12 +4,9 @@ class Api::V1::HousesController < ApplicationController
     render json: House.all.order(created_at: :desc)
   end
 
-  def create
-  end
+  def create; end
 
-  def show
-  end
+  def show; end
 
-  def destroy
-  end
+  def destroy; end
 end
