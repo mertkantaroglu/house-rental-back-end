@@ -1,4 +1,4 @@
-class ReservationsController < ApplicationController
+class Api::V1::ReservationsController < ApplicationController
   def index
     @user = User.find(params[:user_id])
     @reservations = @user.reservations
@@ -16,7 +16,7 @@ class ReservationsController < ApplicationController
     if @reservation.save
       House.where(id: @reservation.houses_id).update(reservations_id: @reservation.id)
       render json: @reservation, status: :created,
-             location: user_reservation_url(@reservation.users_id, @reservation)
+             location: api_v1_user_reservation_url(@reservation.users_id, @reservation)
     else
       render json: @reservation.errors, status: :unprocessable_entity
     end
@@ -34,7 +34,7 @@ class ReservationsController < ApplicationController
 
     House.where(id: @reservation.houses_id).update(reservations_id: nil)
     if @reservation.destroy
-      render json: { message: 'reservation successfully deleted' }
+      render json: { message: 'Reservation successfully deleted' }
     else
       render json: { error: 'Failed to delete reservation' }, status: :unprocessable_entity
     end
