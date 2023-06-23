@@ -1,8 +1,6 @@
 class House < ApplicationRecord
-  validates :name, presence: true
-  validates :location, presence: true
-  validates :bedrooms, presence: true
-  validates :bathrooms, presence: true
-  validates :price, presence: true
-  validates :image, presence: true
+  belongs_to :user, class_name: 'User', foreign_key: 'users_id'
+  has_one :reservations, foreign_key: 'houses_id', dependent: :destroy
+
+  validates :name, :location, :bedrooms, :bathrooms, :price, :image_url, presence: true
 end
