@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_22_114447) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_22_185230) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_22_114447) do
     t.string "image", default: "https://unsplash.com/photos/2gDwlIim3Uw"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "reservations_id"
+    t.index ["reservations_id"], name: "index_houses_on_reservations_id"
   end
 
+  create_table "reservations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "houses", "reservations", column: "reservations_id"
 end
