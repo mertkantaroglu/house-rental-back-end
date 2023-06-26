@@ -47,3 +47,5 @@ group :development do
 end
 
 gem 'dotenv-rails', require: 'dotenv/rails-now'
+gem 'devise'
+gem 'devise-jwt'
