@@ -3,7 +3,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   private
 
-  def respond_with(resource, options={})
+  def respond_with(resource, _options = {})
     if resource.persisted?
       render json: {
         status: { code: 200, message: 'Signed up successfully', data: resource }

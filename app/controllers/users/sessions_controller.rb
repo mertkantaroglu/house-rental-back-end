@@ -3,7 +3,7 @@ class Users::SessionsController < Devise::SessionsController
 
   private
 
-  def respond_with(resource, options = {})
+  def respond_with(resource, _options = {})
     puts "Responding with resource: #{resource.inspect}"
 
     return unless resource.persisted?
@@ -17,7 +17,7 @@ class Users::SessionsController < Devise::SessionsController
 
   def respond_to_on_destroy
     jwt_payload = JWT.decode(request.headers['Authorization'].split[1],
-      Rails.application.credentials.fetch(:secret_key_base)).first
+                             Rails.application.credentials.fetch(:secret_key_base)).first
     current_user = User.find(jwt_payload['sub'])
 
     if current_user
@@ -28,6 +28,6 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def sign_in_params
-    params.require(:user).permit(:name,:email, :password)
+    params.require(:user).permit(:name, :email, :password)
   end
 end

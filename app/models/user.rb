@@ -8,8 +8,4 @@ class User < ApplicationRecord
   has_many :reservations, foreign_key: 'user_id'
 
   validates :name, presence: true
-
-  def jwt_payload
-    super
-  end
 end
