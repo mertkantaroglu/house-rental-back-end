@@ -46,4 +46,6 @@ group :development do
   # gem "spring"
 end
 
+gem 'devise'
+gem 'devise-jwt'
 gem 'dotenv-rails', require: 'dotenv/rails-now'

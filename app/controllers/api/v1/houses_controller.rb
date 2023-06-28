@@ -7,11 +7,17 @@ class Api::V1::HousesController < ApplicationController
   end
 
   def create
-    house = House.create!(house_params)
-    if house
-      render json: house
-    else
-      render json: house.errors
+    @house = House.new(house_params)
+    @house.user_id = current_user.id
+
+    respond_to do |format|
+      if @house.save
+        format.html { redirect_to house_url(@house) }
+        format.json { render :show, status: :created, location: @house }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @house.errors, status: :unprocessable_entity }
+      end
     end
   end
 

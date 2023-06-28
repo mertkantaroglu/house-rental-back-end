@@ -1,6 +1,8 @@
 class Reservation < ApplicationRecord
-  belongs_to :houses, class_name: 'House'
-  belongs_to :users, class_name: 'User'
+  belongs_to :user, class_name: 'User'
 
-  validates :date, :city, presence: true
+  has_many :house_reservations, dependent: :destroy
+  has_many :houses, through: :house_reservations, dependent: :destroy
+
+  validates :start_date, :end_date, :city, presence: true
 end
