@@ -24,7 +24,7 @@ class Api::V1::ReservationsController < ApplicationController
   end
 
   def create
-    @reservation = current_user.reservations.new(rese@reservation_params)
+    @reservation = current_user.reservations.new(rese(@reservation_params))
     @reservation.user_id = current_user.id
 
     respond_to do |format|
