@@ -1,40 +1,50 @@
 class Api::V1::ReservationsController < ApplicationController
+  before_action :set_reservation, only: %i[show update destroy]
+
+  def new
+    @reservation = Reservation.new
+    @houses = House.all
+    @house = House.find(params[:house_id])
+  end
+
   def index
-    @user = User.find(params[:user_id])
-    @reservations = @user.reservations
-    render json: @reservations
+    @reservations = Reservation.includes(:houses).all
+    @reservation_data = @reservations.map do |reservation|
+      house_image = reservation.houses.first&.image
+      {
+        image: house_image,
+        id: reservation.id,
+        city: reservation.city,
+        start_date: reservation.start_date,
+        end_date: reservation.end_date,
+        user_id: reservation.user.id
+      }
+    end
+    render json: @reservation_data
   end
 
   def create
-    @reservation = Reservation.new(reservation_params)
+    @reservation = current_user.reservations.new(rese@reservation_params)
+    @reservation.user_id = current_user.id
 
-    if Reservation.exists?(houses_id: @reservation.houses_id)
-      render json: { error: 'Already reserved' }, status: :unprocessable_entity
-      return
-    end
+    respond_to do |format|
+      if @reservation.save
+        house = House.find(params[:reservation][:house_id])
+        @reservation.houses << house
 
-    if @reservation.save
-      House.where(id: @reservation.houses_id).update(reservations_id: @reservation.id)
-      render json: @reservation, status: :created,
-             location: api_v1_user_reservation_url(@reservation.users_id, @reservation)
-    else
-      render json: @reservation.errors, status: :unprocessable_entity
+        format.html { redirect_to reservation_path(id: params[:house_id]) }
+        format.json { render :show, status: :created, location: @reservation }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @reservation.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def destroy
     @reservation = Reservation.find(params[:id])
-
-    @user = User.find(@reservation.users_id)
-
-    if params[:password].blank? || !@user.authenticate(params[:password])
-      render json: { error: 'Incorrect password' }, status: :unauthorized
-      return
-    end
-
-    House.where(id: @reservation.houses_id).update(reservations_id: nil)
     if @reservation.destroy
-      render json: { message: 'Reservation successfully deleted' }
+      render json: { message: 'reservation deleted successfully' }, status: :ok
     else
       render json: { error: 'Failed to delete reservation' }, status: :unprocessable_entity
     end
@@ -43,6 +53,6 @@ class Api::V1::ReservationsController < ApplicationController
   private
 
   def reservation_params
-    params.require(:reservation).permit(:date, :city, :users_id, :houses_id)
+    params.require(:reservation).permit(:start_date, :end_date, :city, :user_id, :house_id)
   end
 end
