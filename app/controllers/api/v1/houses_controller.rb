@@ -2,33 +2,42 @@ class Api::V1::HousesController < ApplicationController
   before_action :set_house, only: %i[show destroy]
 
   def index
-    # return houses in descending order
     render json: House.all.order(created_at: :desc)
   end
 
   def create
-    @house = House.new(house_params)
-    @house.user_id = current_user.id
+    @user = User.find_by(id: params[:user_id])
 
-    respond_to do |format|
+    if @user.nil?
+      render json: { error: 'User not found' }, status: :unprocessable_entity
+    else
+      @house = @user.houses.build(house_params)
+
       if @house.save
-        format.html { redirect_to house_url(@house) }
-        format.json { render :show, status: :created, location: @house }
+        render json: @house, status: :created
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @house.errors, status: :unprocessable_entity }
+        render json: { error: @house.errors.full_messages }, status: :unprocessable_entity
       end
     end
   end
 
   def show
-    @house = House.find(params[:id])
-    render json: @house
+    @house = House.find_by(id: params[:id])
+
+    if @house
+      render json: @house
+    else
+      render json: { error: 'House not found' }, status: :not_found
+    end
   end
 
   def destroy
-    @house&.destroy
-    render json: { message: 'House deleted!' }
+    if @house
+      @house.destroy
+      render json: { message: 'House deleted!' }
+    else
+      render json: { error: 'House not found' }, status: :not_found
+    end
   end
 
   private
