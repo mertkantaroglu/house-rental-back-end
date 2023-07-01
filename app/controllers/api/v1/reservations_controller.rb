@@ -24,7 +24,8 @@ class Api::V1::ReservationsController < ApplicationController
   end
 
   def create
-    @reservation = current_user.reservations.new(rese(@reservation_params))
+    # @reservation = Reservation.new(reservation_params)
+    @reservation = current_user.reservations.new(reservation_params)
     @reservation.user_id = current_user.id
 
     respond_to do |format|
@@ -32,7 +33,7 @@ class Api::V1::ReservationsController < ApplicationController
         house = House.find(params[:reservation][:house_id])
         @reservation.houses << house
 
-        format.html { redirect_to reservation_path(id: params[:house_id]) }
+        format.html { redirect_to reservation_url(@reservation) }
         format.json { render :show, status: :created, location: @reservation }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -41,16 +42,24 @@ class Api::V1::ReservationsController < ApplicationController
     end
   end
 
+
+  def show
+    render json: @reservation
+  end
+
   def destroy
-    @reservation = Reservation.find(params[:id])
     if @reservation.destroy
-      render json: { message: 'reservation deleted successfully' }, status: :ok
+      render json: { message: 'Reservation deleted successfully' }, status: :ok
     else
       render json: { error: 'Failed to delete reservation' }, status: :unprocessable_entity
     end
   end
 
   private
+
+  def set_reservation
+    @reservation = Reservation.find(params[:id])
+  end
 
   def reservation_params
     params.require(:reservation).permit(:start_date, :end_date, :city, :user_id, :house_id)
