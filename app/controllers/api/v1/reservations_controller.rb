@@ -1,5 +1,5 @@
 class Api::V1::ReservationsController < ApplicationController
-  before_action :set_reservation, only: %i[show update destroy]
+  before_action :set_reservation, only: %i[show destroy]
 
   def new
     @reservation = Reservation.new
@@ -8,40 +8,30 @@ class Api::V1::ReservationsController < ApplicationController
   end
 
   def index
-    @reservations = Reservation.includes(:houses).all
-    @reservation_data = @reservations.map do |reservation|
-      house_image = reservation.houses.first&.image
-      {
-        image: house_image,
-        id: reservation.id,
-        city: reservation.city,
-        start_date: reservation.start_date,
-        end_date: reservation.end_date,
-        user_id: reservation.user.id
-      }
-    end
-    render json: @reservation_data
+    @user = current_user
+    @reservations = Reservation.all
+    render json: @reservations
   end
 
   def create
-    # @reservation = Reservation.new(reservation_params)
-    @reservation = current_user.reservations.new(reservation_params)
-    @reservation.user_id = current_user.id
+    reservation = Reservation.new(reservation_params)
 
-    respond_to do |format|
-      if @reservation.save
-        house = House.find(params[:reservation][:house_id])
-        @reservation.houses << house
-
-        format.html { redirect_to reservation_url(@reservation) }
-        format.json { render :show, status: :created, location: @reservation }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @reservation.errors, status: :unprocessable_entity }
-      end
+    if reservation.save
+      render json: {
+        operation: 'reservation created successfully',
+        data: {
+          reservation_id: reservation.id
+        }
+      }, status: :created
+    else
+      render json: {
+        operation: 'not successful',
+        data: {
+          errors: reservation.errors
+        }
+      }, status: :bad_request
     end
   end
-
 
   def show
     render json: @reservation
