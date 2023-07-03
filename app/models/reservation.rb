@@ -4,5 +4,5 @@ class Reservation < ApplicationRecord
   has_many :house_reservations, dependent: :destroy
   has_many :houses, through: :house_reservations, dependent: :destroy
 
-  validates :start_date, :end_date, :city, presence: true
+  validates :name, :start_date, :end_date, :city, presence: true
 end
