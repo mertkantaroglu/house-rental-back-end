@@ -32,20 +32,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_03_130210) do
     t.string "image", default: "https://unsplash.com/photos/2gDwlIim3Uw"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "reservations_id"
     t.bigint "user_id", null: false
+    t.index ["reservations_id"], name: "index_houses_on_reservations_id"
     t.index ["user_id"], name: "index_houses_on_user_id"
   end
 
   create_table "reservations", force: :cascade do |t|
-    t.string "city"
-    t.date "start_date"
-    t.date "end_date"
-    t.bigint "house_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.string "name", null: false
-    t.index ["house_id"], name: "index_reservations_on_house_id"
     t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 
@@ -66,7 +63,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_03_130210) do
 
   add_foreign_key "house_reservations", "houses"
   add_foreign_key "house_reservations", "reservations"
+  add_foreign_key "houses", "reservations", column: "reservations_id"
   add_foreign_key "houses", "users"
-  add_foreign_key "reservations", "houses"
   add_foreign_key "reservations", "users"
 end
