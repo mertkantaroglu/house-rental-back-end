@@ -16,7 +16,6 @@
   - [Prerequisites](#prerequisites)
   - [Install](#install)
   - [Usage](#usage)
-  - [Run tests](#tests)
   - [Deployment](#deployment)
 - [👥 Authors](#authors)
 - [🔭 Future Features](#future-features)
@@ -91,17 +90,12 @@ In order to run this project you need:
 git clone https://github.com/LeslieAine/house-rental-back-end
 ```
 
-- Open `.env.example` file at root directory and fill parameters accordingly
+- Create a secret key base locally by:
 
-Example:
-
-```shell
-RAILS_DATABASE_USER=user
-RAILS_DATABASE_PASSWORD=12345678
-JWT_SECRET_KEY=JDo6W3hMWX5TVTlVcysxR3tBdkwhdQ
-```
-
-- Rename the file to `.env`
+1. Remove config/master.key and config/credentials.yml.enc if they exist.
+2. Run in the terminal: EDITOR=code rails credentials:edit 
+3. Close the editor that opens.
+4. This command will create a new master.key and credentials.yml.enc if they do not exist.
 
 ### Install <a name="install"></a>
 
@@ -137,14 +131,6 @@ rails db:seed
 
 ```shell
 rails s 
-```
-
-### Run tests <a name="tests"></a>
-
-To run tests, execute the following command:
-
-```sh
-rspec spec --exclude-pattern "spec/requests/swagger/**/*_spec.rb"
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
