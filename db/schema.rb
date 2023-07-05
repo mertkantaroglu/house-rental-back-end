@@ -42,7 +42,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_03_130210) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
-    t.string "name", null: false
     t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 
@@ -61,8 +60,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_03_130210) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "house_reservations", "houses"
-  add_foreign_key "house_reservations", "reservations"
   add_foreign_key "houses", "reservations", column: "reservations_id"
   add_foreign_key "houses", "users"
   add_foreign_key "reservations", "users"
