@@ -180,6 +180,11 @@ GEM
     responders (3.1.0)
       actionpack (>= 5.2)
       railties (>= 5.2)
+    rswag-api (2.9.0)
+      railties (>= 3.1, < 7.1)
+    rswag-ui (2.9.0)
+      actionpack (>= 3.1, < 7.1)
+      railties (>= 3.1, < 7.1)
     thor (1.2.2)
     timeout (0.3.2)
     tzinfo (2.0.6)
@@ -213,6 +218,8 @@ DEPENDENCIES
   puma (~> 5.0)
   rack-cors
   rails (~> 7.0.5)
+  rswag-api
+  rswag-ui
   tzinfo-data
 
 RUBY VERSION

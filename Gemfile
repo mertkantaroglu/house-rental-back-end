@@ -49,3 +49,6 @@ end
 gem 'devise'
 gem 'devise-jwt'
 gem 'dotenv-rails', require: 'dotenv/rails-now'
+
+gem 'rswag-api'
+gem 'rswag-ui'

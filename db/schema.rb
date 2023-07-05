@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_27_143940) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_03_130210) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "house_reservations", force: :cascade do |t|
+    t.bigint "house_id", null: false
+    t.bigint "reservation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["house_id"], name: "index_house_reservations_on_house_id"
+    t.index ["reservation_id"], name: "index_house_reservations_on_reservation_id"
+  end
 
   create_table "houses", force: :cascade do |t|
     t.string "name", null: false
