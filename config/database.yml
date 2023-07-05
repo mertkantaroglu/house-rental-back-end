@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: final_capstone_back_end_development
+  database: house_rental_back_end_development
   username: <%= ENV['DATABASE_USERNAME'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
   host: localhost
@@ -61,7 +61,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: final_capstone_back_end_test
+  database: house_rental_back_end_test
   username: <%= ENV['DATABASE_USERNAME'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
   host: localhost
@@ -89,6 +89,6 @@ test:
 #
 production:
   <<: *default
-  database: final_capstone_back_end_production
-  username: final_capstone_back_end
-  password: <%= ENV["FINAL_CAPSTONE_BACK_END_DATABASE_PASSWORD"] %>
+  database: house_rental_back_end_production
+  username: house_rental_back_end
+  password: <%= ENV["HOUSE_RENTAL_BACK_END_DATABASE_PASSWORD"] %>

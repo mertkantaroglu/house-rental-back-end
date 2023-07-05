@@ -217,7 +217,6 @@ components:
         city:
           type: string
       required:
-        - name
         - start_date
         - end_date
         - city
