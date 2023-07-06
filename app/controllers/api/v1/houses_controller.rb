@@ -33,6 +33,7 @@ class Api::V1::HousesController < ApplicationController
 
   def destroy
     if @house
+      @house.reservations.destroy_all
       @house.destroy
       render json: { message: 'House deleted!' }
     else
