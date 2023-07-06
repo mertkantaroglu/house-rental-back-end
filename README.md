@@ -29,7 +29,7 @@
 
 # 📖 House Rental <a name="about-project"></a>
 
-**House Rental** contains the backend code for a House Rental App, which allows users to reserve a house, add new houses, and delete existing ones. The backend is built using Ruby On Rails and communicates with the frontend of the app to provide a seamless user experience. The backend includes functionality for user authentication and authorization, allowing only authorized users to perform actions such as adding or deleting houses. It also includes a Postgresql database to store information about the houses available for rent, as well as information about user reservations.
+**House Rental** contains the backend code for a House Rental App, which allows users to reserve a house, add new houses, and delete existing ones. The backend is built using Ruby On Rails and communicates with the front end of the app to provide a seamless user experience. The backend includes functionality for user authentication and authorization, allowing only authorized users to perform actions such as adding or deleting houses. It also includes a Postgresql database to store information about the houses available for rent, as well as information about user reservations.
 
 ## 🛠 Built With <a name="built-with"></a>
 
@@ -56,7 +56,7 @@
 
 ### Front End app <a name="frontend"></a>
 
-Click [here](https://github.com/LeslieAine/house-rental-front-end) to access the front end app that was built with react
+Click [here](https://github.com/LeslieAine/house-rental-front-end) to access the front-end app that was built with React
 
 <!-- ### API Documentation <a name="api-documentation"></a>
 
@@ -64,10 +64,20 @@ Click [here](https://github.com/LeslieAine/house-rental-front-end) to access the
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Kanban board <a name="kanban"></a>
+### API Documentation <a name="api-documentation"></a>
 
-- [Link to board](https://github.com/users/LeslieAine/projects/3/views/1)
+You can test our API endpoints from the below link.
+
+- [Link to API Docs](http://127.0.0.1:3000/api-docs/index.html)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Kanban Board <a name="kanban"></a>
+
+- [Link to board](https://github.com/users/LeslieAine/projects/3/views/)
 - Our team consists of 3 members: @LeslieAine, @Zeph180, and @mertkantaroglu
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 
@@ -190,7 +200,7 @@ Feel free to check the [issues page](https://github.com/LeslieAine/house-rental-
 
 ## ⭐️ Show your support <a name="support"></a>
 
-If you like this project by staring it.
+If you like this project please give us a "⭐️".
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -198,7 +208,7 @@ If you like this project by staring it.
 
 ## 🙏 Acknowledgments <a name="acknowledgements"></a>
 
-I would like to thank Microverse for project inspiration.
+We would like to thank Microverse for project inspiration.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
